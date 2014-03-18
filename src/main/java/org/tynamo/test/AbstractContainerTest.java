@@ -32,19 +32,19 @@ import java.util.List;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.util.resource.ResourceCollection;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+// import org.eclipse.jetty.server.nio.SelectChannelConnector;
 
 public abstract class AbstractContainerTest
 {
@@ -93,7 +93,13 @@ public abstract class AbstractContainerTest
 
 
 			server = new PauseableServer();
-			Connector connector = new SelectChannelConnector();
+
+//			HttpConfiguration http_config = new HttpConfiguration();
+//      http_config.setSecureScheme("https");
+//      http_config.setSecurePort(8443);
+//      http_config.setOutputBufferSize(32768);
+//      new ServerConnector(server,new HttpConnectionFactory(http_config));
+			ServerConnector connector = new ServerConnector(server);
 			connector.setPort(port);
 			server.setConnectors(new Connector[]{connector});
 
@@ -121,16 +127,6 @@ public abstract class AbstractContainerTest
 		 */
 		context.setParentLoaderPriority(true);
 		return context;
-	}
-
-	/**
-	 * Hook method which is called during setup phase, before the first request.
-	 * It allows subclasses to modify the  webClient, such as for disabling javascript
-	 */
-	@BeforeTest
-	public void configureWebClient()
-	{
-		webClient.setThrowExceptionOnFailingStatusCode(true);
 	}
 
 	public void pauseServer(boolean paused)

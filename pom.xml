@@ -4,38 +4,38 @@
 	<artifactId>tynamo-test</artifactId>
 	<name>Tynamo Test</name>
 	<packaging>jar</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.0.11</version>
+		<version>0.1.0</version>
 	</parent>
-	
+
 	<scm>
-		<connection>scm:svn:http://svn.codehaus.org/tynamo/trunk/tynamo-test</connection>
-		<developerConnection>scm:svn:https://svn.codehaus.org/tynamo/trunk/tynamo-test</developerConnection>
-		<url>http://svn.tynamo.codehaus.org/tynamo/trunk/tynamo-test</url>
+		<connection>scm:git:git@github.com:tynamo/tynamo-test.git</connection>
+		<developerConnection>scm:git:git@github.com:tynamo/tynamo-test.git</developerConnection>
+		<url>https://github.com/tynamo/tynamo-test</url>
 	</scm>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-webapp</artifactId>
-			<version>8.1.8.v20121106</version>
+			<version>9.1.3.v20140225</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>5.14.10</version>
+			<version>6.8.8</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
-			<version>2.11</version>
+			<version>2.14</version>
 		</dependency>
 
 	</dependencies>
