@@ -32,9 +32,9 @@ import java.util.List;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.util.resource.ResourceCollection;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.testng.annotations.BeforeClass;
@@ -93,13 +93,7 @@ public abstract class AbstractContainerTest
 
 
 			server = new PauseableServer();
-
-//			HttpConfiguration http_config = new HttpConfiguration();
-//      http_config.setSecureScheme("https");
-//      http_config.setSecurePort(8443);
-//      http_config.setOutputBufferSize(32768);
-//      new ServerConnector(server,new HttpConnectionFactory(http_config));
-			ServerConnector connector = new ServerConnector(server);
+			Connector connector = new SelectChannelConnector();
 			connector.setPort(port);
 			server.setConnectors(new Connector[]{connector});
 
