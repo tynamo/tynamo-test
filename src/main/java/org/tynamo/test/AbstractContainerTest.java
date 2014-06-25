@@ -25,6 +25,7 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
@@ -112,8 +113,10 @@ public abstract class AbstractContainerTest
 	public WebAppContext buildContext()
 	{
 		WebAppContext context = new WebAppContext("src/main/webapp", "/");
-		ResourceCollection resourceCollection = new ResourceCollection(new String[]{"src/main/webapp", "src/test/webapp"});
-		context.setBaseResource(resourceCollection);
+		if (new File("src/test/webapp").exists()) {
+			ResourceCollection resourceCollection = new ResourceCollection(new String[]{"src/main/webapp", "src/test/webapp"});
+			context.setBaseResource(resourceCollection);
+		}
 
 		/**
 		 * like -Dorg.eclipse.jetty.webapp.parentLoaderPriority=true
