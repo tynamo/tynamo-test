@@ -33,9 +33,9 @@ import java.util.List;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.util.resource.ResourceCollection;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.testng.annotations.BeforeClass;
@@ -94,7 +94,7 @@ public abstract class AbstractContainerTest
 
 
 			server = new PauseableServer();
-			Connector connector = new SelectChannelConnector();
+			ServerConnector connector = new ServerConnector(server);
 			connector.setPort(port);
 			server.setConnectors(new Connector[]{connector});
 

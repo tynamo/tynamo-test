@@ -9,8 +9,13 @@
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.2.1</version>
+		<version>0.2.2</version>
 	</parent>
+
+	<properties>
+		<!-- In general, we should be using the same jetty version as htmlunit is using -->	
+		<jetty-release-version>9.2.11.v20150529</tapestry-release-version>
+	</properties>	
 
 	<scm>
 		<connection>scm:git:git@github.com:tynamo/tynamo-test.git</connection>
@@ -23,7 +28,7 @@
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-webapp</artifactId>
-			<version>8.1.14.v20131031</version>
+			<version>${jetty-release-version}</version>
 		</dependency>
 
 		<dependency>
@@ -36,9 +41,19 @@
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
-			<version>2.15</version>
+			<version>2.17</version>
 		</dependency>
 
 	</dependencies>
-
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>maven-jetty-plugin</artifactId>
+					<version>${jetty-release-version}</version>
+				</plugin>
+		</pluginManagement>
+	</build>
 </project>
