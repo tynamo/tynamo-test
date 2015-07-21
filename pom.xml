@@ -14,7 +14,7 @@
 
 	<properties>
 		<!-- In general, we should be using the same jetty version as htmlunit is using -->	
-		<jetty-release-version>9.2.11.v20150529</tapestry-release-version>
+		<jetty-release-version>9.2.11.v20150529</jetty-release-version>
 	</properties>	
 
 	<scm>
