@@ -4,17 +4,17 @@
 	<artifactId>tynamo-test</artifactId>
 	<name>Tynamo Test</name>
 	<packaging>jar</packaging>
-	<version>0.1.4-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.2.2</version>
+		<version>0.3.0</version>
 	</parent>
 
 	<properties>
 		<!-- In general, we should be using the same jetty version as htmlunit is using -->	
-		<jetty-release-version>9.4.5.v20170502</jetty-release-version>
+		<jetty-release-version>9.4.27.v20200227</jetty-release-version>
 	</properties>	
 
 	<scm>
@@ -34,7 +34,6 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.8.8</version>
 			<scope>compile</scope>
 		</dependency>
 
