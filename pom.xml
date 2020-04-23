@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.3.0</version>
+		<version>0.3.1</version>
 	</parent>
 
 	<properties>
@@ -52,19 +52,6 @@
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>maven-jetty-plugin</artifactId>
 					<version>${jetty-release-version}</version>
-				</plugin>
-				<!--  test release plugin configuration here, but should be moved to the parent.
-				The issue is that newer release plugins don't enable the profiles for the whole duration of release:perform but only
-				deploy part. We need release available as gpg is activated based on it, package gpg:sign  -->
-				<plugin>
-					<artifactId>maven-release-plugin</artifactId>
-					<configuration>
-						<!-- By default, do not deploy site, especially for the parent itself-->
-						<goals>deploy</goals>
-						<autoVersionSubmodules>true</autoVersionSubmodules>
-						<releaseProfiles>release,ossrh</releaseProfiles>
-						<arguments>-Prelease</arguments>					
-					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
