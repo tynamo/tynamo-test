@@ -14,7 +14,7 @@
 
 	<properties>
 		<!-- In general, we should be using the same jetty version as htmlunit is using -->	
-		<jetty-release-version>9.4.27.v20200227</jetty-release-version>
+		<jetty-release-version>9.4.34.v20201102</jetty-release-version>
 	</properties>	
 
 	<scm>
