@@ -19,8 +19,8 @@
 
 package org.tynamo.test;
 
-import static com.gargoylesoftware.htmlunit.WebAssert.assertTextNotPresent;
-import static com.gargoylesoftware.htmlunit.WebAssert.assertTextPresent;
+import static org.htmlunit.WebAssert.assertTextNotPresent;
+import static org.htmlunit.WebAssert.assertTextPresent;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
@@ -28,23 +28,25 @@ import static org.testng.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee10.webapp.WebAppContext;
 import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.util.resource.ResourceCollection;
-import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.util.resource.ResourceFactory;
+import org.htmlunit.ElementNotFoundException;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlPage;
 import org.testng.annotations.BeforeClass;
-
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 // import org.eclipse.jetty.server.nio.SelectChannelConnector;
 
 public abstract class AbstractContainerTest
@@ -98,8 +100,8 @@ public abstract class AbstractContainerTest
 			connector.setPort(port);
 			server.setConnectors(new Connector[]{connector});
 
-			HandlerCollection handlers = new HandlerCollection();
-			handlers.setHandlers(new Handler[]{buildContext(), new DefaultHandler()});
+			ContextHandlerCollection handlers = new ContextHandlerCollection();
+			handlers.setHandlers(new ContextHandler[]{buildContext(), new ServletContextHandler()});
 			server.setHandler(handlers);
 			server.start();
 			assertTrue(server.isStarted());
@@ -109,14 +111,30 @@ public abstract class AbstractContainerTest
 	/**
 	 * Non-abstract hook method (with a default implementation) to allow subclasses to provide their own WebAppContext instance.
 	 * @return a WebAppContext
+	 * @throws URISyntaxException 
 	 */
-	public WebAppContext buildContext()
+	public WebAppContext buildContext() throws URISyntaxException
 	{
 		WebAppContext context = new WebAppContext("src/main/webapp", "/");
+//		if (new File("src/test/webapp").exists()) {
+//			ResourceCollection resourceCollection = new ResourceCollection(new String[]{"src/main/webapp", "src/test/webapp"});
+//			context.setBaseResource(resourceCollection);
+//		}
+		
+		ResourceFactory resourceFactory = ResourceFactory.of(context);
 		if (new File("src/test/webapp").exists()) {
-			ResourceCollection resourceCollection = new ResourceCollection(new String[]{"src/main/webapp", "src/test/webapp"});
-			context.setBaseResource(resourceCollection);
-		}
+//		    List<Resource> resources = new ArrayList<>();
+//		    resources.add(resourceFactory.newResource("src/main/webapp"));
+//		    resources.add(resourceFactory.newResource("src/test/webapp"));
+//		    context.setBaseResource(resourceFactory.new newResource(resources));
+		    List<URI> resources = new ArrayList<>();
+		    resources.add(new URI("src/main/webapp"));
+		    resources.add(new URI("src/test/webapp"));
+		    context.setBaseResource(resourceFactory.newResource(resources));
+		} else {
+		    context.setBaseResource(resourceFactory.newResource("src/main/webapp"));
+		}		
+		
 
 		/**
 		 * like -Dorg.eclipse.jetty.webapp.parentLoaderPriority=true

@@ -4,7 +4,7 @@
 	<artifactId>tynamo-test</artifactId>
 	<name>Tynamo Test</name>
 	<packaging>jar</packaging>
-	<version>0.2.2-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.tynamo</groupId>
@@ -14,7 +14,7 @@
 
 	<properties>
 		<!-- In general, we should be using the same jetty version as htmlunit is using -->	
-		<jetty-release-version>9.4.27.v20200227</jetty-release-version>
+		<jetty-release-version>12.0.22</jetty-release-version>
 	</properties>	
 
 	<scm>
@@ -27,10 +27,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-webapp</artifactId>
+			<artifactId>jetty-server</artifactId>
 			<version>${jetty-release-version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.eclipse.jetty.ee10</groupId>
+			<artifactId>jetty-ee10-webapp</artifactId>
+			<version>${jetty-release-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-util</artifactId>
+			<version>${jetty-release-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -38,9 +47,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>net.sourceforge.htmlunit</groupId>
+			<groupId>org.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
-			<version>2.39.0</version>
+			<version>4.13.0</version>
 		</dependency>
 
 	</dependencies>
@@ -49,8 +58,8 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.eclipse.jetty</groupId>
-					<artifactId>maven-jetty-plugin</artifactId>
+					<groupId>org.eclipse.jetty.ee9</groupId>
+					<artifactId>jetty-ee9-maven-plugin</artifactId>
 					<version>${jetty-release-version}</version>
 				</plugin>
 			</plugins>
